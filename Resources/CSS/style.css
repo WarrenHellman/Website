@@ -5,17 +5,18 @@
 /* ------------------------------------------------------------------------- */
 /* ---------BASIC SETUP---------------- */
 /* ------------------------------------------------------------------------- */
-
+/* our default */
 *{
     margin: 0;
     padding: 0;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
+/* keeps extra content from overflowing on the x axis */
 body {
     overflow-x: hidden;
 }
-
+/* Our defaults for html */
 html {
     background-color: #fff;
     color: #555;
