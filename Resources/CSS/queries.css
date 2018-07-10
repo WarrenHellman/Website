@@ -1,0 +1,87 @@
+/* To test what css rules need to change, just adjust your browser width to some the breakpoints below and see what looks wonky */
+
+/* Setting our media query rules for small phones, 0-480px */
+
+@media only screen and (max-width: 480px) {
+    section {padding: 25px 0;}
+    .contact-form {width: 100%;}
+}
+/* For screens smaller than an iPad, 481-767px */
+@media only screen and (max-width: 767px) {
+    /* even smaller font */
+    body {font-size: 16px;}
+    section {padding: 30px 0;}
+    .row,
+    .hero-text-box {padding: 0 4%;}
+    /* makes a single row instead of columns*/
+    .col {
+        width: 100%;
+        margin: 0 0 4% 0;
+    }
+    /* hides navigation so we can build a mobile navigation */
+    nav {display: none;}
+    h1 {font-size: 180%;}
+    h2 {font-size: 150%;}
+    .long-copy {
+        width: 100%;
+        margin-left: 0%;
+    }
+    /* removes white spaces */
+
+    .works-step { margin-bottom: 20px;}
+    .works-step:last-of-type { margin-bottom: 20px;}
+    .works-step div {
+        height: 40px;
+        width: 40px;
+        margin-right: 15px;
+        padding: 4px;
+        font-size: 120%;
+    }
+    .steps-box:first-child {text-align: center;}
+    .app-screen {
+        width: 40%;
+        margin-left: auto;
+        margin-right: 30%;
+    }
+
+}
+
+/* For screens around the size of an iPad in portrait mode */
+@media only screen and (max-width: 1023px) {
+    /* One of the benefits of using relative sizes for font (%) is that we can change the overall font size below and it will automatically resize everything */
+    body {font-size: 18px;}
+    section {padding: 60px 0; }
+    .long-copy {
+        width: 80%;
+        margin-left: 10%;
+    }
+    /* removes white spaces */
+    .steps-box { margin-top: 10px;}
+    .steps-box:last-child { margin-top: 10px;}
+    .works-step { margin-bottom: 40px;}
+    .works-step:last-of-type { margin-bottom: 60px;}
+    /* increase smart phone image size */
+    .apps-screen {width: 50%;}
+    .icon-small {
+        width: 17px;
+        margin-right:10px; 
+    }
+    .city-feature {font-size: 90%}
+
+    .plan-box {
+        width: 100%;
+        margin-left: 0%
+    }
+    .plan-price {font-size: 250%;}
+    .contact-form {width: 80%;}
+}
+
+/* For screens around the size of an iPad in landscape mode and larger */
+@media only screen and (max-width: 1200px) {
+    .hero-text-box{
+        width: 100%;
+        padding: 0 2%;
+    }
+    /* keeps the text away from the edges */
+    .row {padding: 0 2%;}
+}

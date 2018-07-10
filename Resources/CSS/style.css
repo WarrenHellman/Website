@@ -9,7 +9,11 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+body {
+    overflow-x: hidden;
 }
 
 html {
@@ -20,6 +24,8 @@ html {
     font-weight: 300;
     font-size: 20px;
     text-rendering: optimizeLegibility;
+    /* keeps content from spilling over */
+    overflow-x: hidden;
 }
 /* again using clearfix. section 5, lecture 47 14:00. Not important to know how it works, it just clears issues with float */
 .clearfix {zoom: 1}
@@ -108,6 +114,23 @@ h2:after {
     line-height: 180%;
 }
 
+/* -------LINKS----- */
+
+a:link,
+a:visited {
+    color: #e67e22;
+    text-decoration: none;
+    border-bottom: 1px solid #e67e22;
+    padding-bottom: 1px;
+    -webkit-transition: border-bottom .2s, color 0.2s;
+    transition: border-bottom .2s, color 0.2s;
+}
+a:hover,
+a:active {
+    color: #555;
+    border-bottom: 1px solid transparent;
+}
+
 /* -------ICONS----- */
 .icon-big {
     font-size: 350%;
@@ -116,13 +139,28 @@ h2:after {
     margin-bottom: 10px;
 }
 
+.icon-small {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    color: #e67e22;
+    font-size: 120%;
+    margin-right: 10px;
+    /* secrets to align text and icons */
+    line-height: 120%;
+    vertical-align: middle;
+    /* negative margin */
+    margin-top: -5px;
+}
+
 /* -------BUTTONS------ */
 
 
 /* this makes it so the link won't change color after it is visited, you can also do hover and active. These are pseudo classes */
 
 .btn:link,
-.btn:visited {
+.btn:visited,
+input[type=submit] {
     display: inline-block;
     /* first value is top and bottom padding, second left and right */
     padding: 10px 30px;
@@ -132,11 +170,13 @@ h2:after {
     /* makes button round */
     border-radius: 200px;
     /* this gives us a timed transition color from empty to filled in */
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
     transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
 .btn-full:link,
-.btn-full:visited {
+.btn-full:visited,
+input[type=submit] {
     /* these were selected from https://flatuicolors.com/palette/defo, a color selector for flat UIs */
     background-color: #e67e22;
     border: 1px solid #e67e22;
@@ -152,7 +192,9 @@ h2:after {
 
 /* this will effect a change when clicked/hovered. Using 0to255.com you can put in a color and it will offer lighter and darker versions */
 .btn:hover,
-.btn:active {
+.btn:active,
+input[type=submit]:hover,
+input[type=submit]:active {
     background-color: #cf6d17;
 }
 
@@ -176,6 +218,7 @@ h2:after {
 
 header{
     /* linear gradient adds a color filter over the image, like a solid color. adjusting the transparency of the first value gives it opacity. It can create a gradient from what color to another but sinces we want it black the whole way, both colors are the same*/
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.7)), to(rgba(0,0,0,.7))), url(IMGs/hero.jpg);
     background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(IMGs/hero.jpg);
     /* fits image to the space */
     background-size: cover;
@@ -183,6 +226,7 @@ header{
     background-position: center;
     /* sets height to 100% of the viewport image */
     height: 100vh;
+    background-attachment: fixed;
 }
 .hero-text-box{
     /* locks this into the correct position in the header */
@@ -192,15 +236,24 @@ header{
     top: 50%;
     left: 50%;
     /* moves position half of it's width and height up and left */
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
 }
-.logo{
+.logo  {
     height: 100px;
     width: auto;
     float: left;
     margin-top: 20px;
 }
-
+.logo-black {
+    display: none; 
+    height: 50px;
+    width: auto;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+/* Main Navigation */
 .main-nav{
     float: right;
     list-style: none;
@@ -209,7 +262,7 @@ header{
     /* puts elements inline */
     display: inline-block;
     margin-left: 40px;
-    margin-top: 55px;
+    /* margin-top: 55px; */
 }
 /* selects only a tags within li within the main.nav */
 /* we want a mouse over effect so we will split into link/visited and hover/active */
@@ -221,12 +274,36 @@ header{
     text-transform: uppercase;
     font-size: 90%;
     border-bottom: 2px solid transparent;
+    -webkit-transition: border-bottom 0.2s;
     transition: border-bottom 0.2s;
 }
 .main-nav li a:hover,
 .main-nav li a:active {
     border-bottom: 2px solid #e67e22;
 }
+
+/* Sticky Navigation */
+
+.sticky {
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 2px #efefef;
+}
+
+.main-nav {margin-top: 18px;}
+
+.sticky .main-nav li a:link,
+.sticky .main-nav li a:visited {
+    color :#555;
+    padding: 16px 0;
+    
+}
+
+.sticky .logo {display: none;}
+.sticky .logo-black {display: block;}
 /* ------------------------------------------------------------------------- */
 /* ---------FEATURES-------------------------------- */
 /* ------------------------------------------------------------------------- */
@@ -264,14 +341,19 @@ header{
     width: 100%;
     height: auto;
     /* zooms in on image 15% */
-    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
     /* references the 2 hover characteristics below and times their transition */
+    -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+    transition: opacity 0.5s, -webkit-transform 0.5s;
     transition: transform 0.5s, opacity 0.5s;
+    transition: transform 0.5s, opacity 0.5s, -webkit-transform 0.5s;
     background-color: #000;
 }
 
 .meals-photo img:hover {
-    transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+            transform: scale(1.03);
     opacity: 1;
 }
 
@@ -319,6 +401,10 @@ header{
     font-size: 150%;
     margin-right: 25px;
 }
+.btn-app:link,
+.btn-app:visited {
+    border: 0;
+}
 
 .btn-app img {
     height: 50px;
@@ -330,3 +416,225 @@ header{
 /* ------------------------------------------------------------------------- */
 /* ---------Cities Section-------------------------------- */
 /* ------------------------------------------------------------------------- */
+
+.box img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.city-feature {
+    margin-bottom: 5px;
+}
+
+/* ------------------------------------------------------------------------- */
+/* ---------Testimonials Section-------------------------------- */
+/* ------------------------------------------------------------------------- */
+
+.section-testimonials {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.8)), to(rgba(0,0,0,0.9))), url(imgs/back-customers.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url(imgs/back-customers.jpg);
+    background-size: cover;
+    color: #fff;
+    /* The image stays in place as you scroll */
+    background-attachment: fixed;
+}
+
+blockquote {
+    padding: 2%;
+    font-style: italic;
+    line-height: 145%;
+    position: relative;
+    margin-top: 40px;
+}
+
+cite {
+    font-size: 90%;
+    margin-top: 25px;
+    display: block;
+}
+
+blockquote:before {
+    content: '\201C';
+    display: block;
+    font-size: 500%;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+}
+
+cite img {
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* ------------------------------------------------------------------------- */
+/* ---------Pricing Plan Section-------------------------------- */
+/* ------------------------------------------------------------------------- */
+
+.section-plans {
+    background-color: #f4f4f4;
+}
+
+.plan-box {
+    background-color: #fff;
+    border-radius: 5px;
+    width: 90%;
+    margin-left: 5%;
+    /* gives it a subtle shadow on the bottom */
+    -webkit-box-shadow: 0 2px 2px #efefef;
+            box-shadow: 0 2px 2px #efefef;
+}
+
+.plan-box div {
+    padding: 15px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.plan-box div:last-child {
+    text-align: center;
+    border: 0;
+}
+.plan-box div:first-child{
+    background-color: #fcfcfc;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.plan-price {
+    font-size: 300%;
+    margin-bottom: 10px;
+    font-weight: 100;
+    color: #e67e22
+}
+
+.plan-price span {
+    font-size: 30%;
+    font-weight: 300;
+}
+
+.plan-price-meal {
+    font-size: 80%;
+}
+
+.plan-box ul {
+    list-style: none;
+}
+
+.plan-box ul li {
+    padding: 5px 0;
+}
+
+/* ------------------------------------------------------------------------- */
+/* ---------Form-------------------------------- */
+/* ------------------------------------------------------------------------- */
+
+.contact-form {
+    width: 60%;
+    margin: 0 auto;
+}
+
+input[type=text],
+input[type=email],
+select,
+textarea {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+textarea {
+    height: 100px;
+}
+
+input[type=checkbox] {
+    margin: 10px 5px 10px 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+/* ------------------------------------------------------------------------- */
+/* ---------Form-------------------------------- */
+/* ------------------------------------------------------------------------- */
+
+footer {
+    background-color: #333;
+    padding: 40px;
+    font-size: 80%;
+}
+
+.footer-nav {
+    list-style: none;
+    float: left;
+}
+
+.social-links {
+    list-style: none;
+    float: right;
+}
+
+.footer-nav li,
+.social-links li {
+    display: inline-block;
+    margin-right: 20px;
+    
+} 
+.footer-nav li:last-child,
+.social-links li:last-child {
+    margin-right: 0;
+}
+
+.footer-nav li a:link,
+.footer-nav li a:visited,
+.social-links li a:link,
+.social-links li a:visited {
+    text-decoration: none;
+    border: 0;
+    color: #888;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+}
+
+.footer-nav li a:hover,
+.footer-nav li a:active {
+    color: #ddd;
+}
+
+.social-links li a:link,
+.social-links li a:visited {
+    font-size: 160%;
+}
+
+.ion-social-facebook,
+.ion-social-twitter,
+.ion-social-googleplus,
+.ion-social-instagram {
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+}
+
+.ion-social-facebook:hover {
+    color: #3b5998;
+}
+
+.ion-social-twitter:hover {
+    color: #00aced;
+}
+
+.ion-social-instagram:hover {
+    color: #517fa4;
+}
+
+.ion-social-googleplus:hover {
+    color: #dd4b39;
+}
+
+footer p {
+    color: #888;
+    text-align: center;
+    font-size: 90%;
+    margin-top: 20px;
+}
+
