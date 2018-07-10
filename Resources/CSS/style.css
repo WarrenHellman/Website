@@ -245,6 +245,7 @@ header{
     float: left;
     margin-top: 20px;
 }
+/* hides the dark logo  */
 .logo-black {
     display: none; 
     height: 50px;
@@ -262,7 +263,7 @@ header{
     /* puts elements inline */
     display: inline-block;
     margin-left: 40px;
-    /* margin-top: 55px; */
+    margin-top: 55px;
 }
 /* selects only a tags within li within the main.nav */
 /* we want a mouse over effect so we will split into link/visited and hover/active */
@@ -282,18 +283,37 @@ header{
     border-bottom: 2px solid #e67e22;
 }
 
-/* Sticky Navigation */
+/* Mobile Navi */
 
+/* This needs to be invisible unless a screen is of a certain size */
+.mobile-nav-icon {
+    float: right;
+    margin-top: 30px;
+    cursor: pointer;
+    display: none;
+}
+
+.mobile-nav-icon i {
+    font-size: 200%;
+    color: #fff;
+}
+
+/* Sticky Navigation */
+/* provides rules for our scrolling sticky nav, class added after our waypoint jquery triggers */
 .sticky {
+    /* fix it to the top of the screen */
     position: fixed;
     top:0;
     left: 0;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 2px 2px #efefef;
+    -webkit-box-shadow: 0 2px 2px #efefef;
+            box-shadow: 0 2px 2px #efefef;
+    /* gives it a maximum value on the z plane so that it always appears on top */
+    z-index: 9999;
 }
 
-.main-nav {margin-top: 18px;}
+.sticky .main-nav li {margin-top: 18px;}
 
 .sticky .main-nav li a:link,
 .sticky .main-nav li a:visited {
@@ -301,7 +321,7 @@ header{
     padding: 16px 0;
     
 }
-
+/* hided the poorly contrasted logo and displays the better one */
 .sticky .logo {display: none;}
 .sticky .logo-black {display: block;}
 /* ------------------------------------------------------------------------- */
@@ -638,3 +658,25 @@ footer p {
     margin-top: 20px;
 }
 
+/* ------------------------------------------------------------------------- */
+/* ---------Animations-------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* the columns need to be invisible on load so that jquery can have them fade in */
+.js--wp-1,
+.js--wp-2,
+.js--wp-3 {
+    opacity: 0;
+    -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+}
+
+.js--wp-4 {
+    -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+}
+/* gives it both classes at once, new selector */
+.js--wp-1.animated
+.js--wp-2.animated,
+.js--wp-3.animated, {
+    opacity: 1;
+}

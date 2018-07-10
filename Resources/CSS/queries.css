@@ -19,7 +19,39 @@
         margin: 0 0 4% 0;
     }
     /* hides navigation so we can build a mobile navigation */
-    nav {display: none;}
+    .main-nav {display: none;}
+    .mobile-nav-icon {display: inline-block;}
+
+    .main-nav {float: left;}
+
+    .main-nav li:first-child {
+        display: block;
+        margin-top: 25px;
+    }
+    .main-nav li {
+        display: block;
+        margin-top: 5px
+    }
+
+    .main-nav li a:link,
+    .main-nav li a:visited {
+        display: block;
+        border: 0;
+        padding: 10px 0;
+        font-size: 100%;
+    }
+
+    .sticky .main-nav li {margin-top: 10px;}
+
+    .sticky .main-nav li a:link,
+    .sticky .main-nav li a:visited {
+        padding: 10px 0;
+    }
+
+    .sticky .mobile-nav-icon i {color: #555; }
+
+    .sticky .mobile-nav-icon {margin-top: 10px;}
+
     h1 {font-size: 180%;}
     h2 {font-size: 150%;}
     .long-copy {
